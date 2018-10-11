@@ -1,0 +1,27 @@
+---
+
+- hosts: localhost
+  gather_facts: no
+  vars:
+     project_dir : "/home/ec2-user/test"
+  tasks:
+  - name: terraform init
+    command: "terraform init {{ project_dir }} "
+    register: init_result
+
+
+
+  - name: terraform plan
+    terraform:
+      project_path: "{{ project_dir }}"
+      plan_file: "{{ project_dir }}/myplan.tfplan"
+      state: planned
+    register: plan_result
+
+
+  - name: terraform apply
+    terraform:
+      project_path: "{{ project_dir }}"
+      state: present
+      plan_file: "{{ project_dir }}/myplan.tfplan"
+    register: apply_result
