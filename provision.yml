@@ -1,0 +1,14 @@
+"""
+provider "aws" {
+region = "us-east-2"
+}
+resource "aws_s3_bucket" "terraform-bucket-create" {
+bucket = "${var.aws_s3_bucket}"
+acl = "private"
+}
+
+output "acl-type" {
+description = "acl of bucket"
+value = ["1"]
+}
+"""
